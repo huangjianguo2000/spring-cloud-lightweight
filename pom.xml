@@ -15,5 +15,6 @@
     <modules>
         <module>lightweight-server</module>
         <module>lightweight-server/light-core</module>
+        <module>lightweight-common</module>
     </modules>
 </project>
