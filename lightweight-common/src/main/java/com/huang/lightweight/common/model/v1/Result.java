@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.huang.lightweight.server.api.model.v1;
-
-import com.huang.lightweight.common.model.v1.ErrorCode;
+package com.huang.lightweight.common.model.v1;
 
 import java.io.Serializable;
 

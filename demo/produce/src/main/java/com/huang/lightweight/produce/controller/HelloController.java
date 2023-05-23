@@ -1,10 +1,8 @@
-package com.huang.lightweight.server.api.registry;
+package com.huang.lightweight.produce.controller;
 
 import com.huang.lightweight.common.model.v1.Result;
 import com.huang.lightweight.common.pojo.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
-import com.huang.lightweight.server.registry.service.RegistryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,14 +13,9 @@ import java.util.List;
  * @author lightweight
  */
 @RestController
-@RequestMapping("/light/v1/rc")
-public class RegistryController {
+@RequestMapping("/produce")
+public class HelloController {
 
-    /**
-     * registryService
-     */
-    @Autowired
-    private RegistryService registryService;
 
     /**
      * Registers a service instance.
@@ -31,14 +24,13 @@ public class RegistryController {
      * @return The result of the operation.
      */
     @PostMapping("/instance")
-    public Result<Void> registry(@RequestBody Instance instance){
-        registryService.registry(instance);
-        return Result.success();
+    public Result<String> registry(@RequestBody Instance instance){
+        return Result.success("1");
     }
 
     @GetMapping("/instance")
     public Result<List<InstanceWrapper>> listInstance(){
-        return Result.success(registryService.listInstances());
+        return Result.success();
     }
 
 }

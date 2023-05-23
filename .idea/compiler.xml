@@ -13,6 +13,8 @@
         <module name="lightweight-client" />
         <module name="bootstrap" />
         <module name="api" />
+        <module name="demo" />
+        <module name="produce" />
         <module name="demo-test" />
         <module name="light-core" />
       </profile>
@@ -21,11 +23,13 @@
       <module name="api" target="8" />
       <module name="bootstrap" target="&gt;1.8" />
       <module name="core" target="8" />
+      <module name="demo" target="8" />
       <module name="demo-test" target="1.8" />
       <module name="light-core" target="8" />
       <module name="lightweight-client" target="1.8" />
       <module name="lightweight-common" target="8" />
       <module name="lightweight-server" target="&gt;1.8" />
+      <module name="produce" target="1.8" />
       <module name="spring-cloud-lightweight" target="8" />
     </bytecodeTargetLevel>
   </component>
@@ -40,6 +44,7 @@
       <module name="light-core" options="-parameters" />
       <module name="lightweight-client" options="-parameters" />
       <module name="lightweight-server" options="-parameters" />
+      <module name="produce" options="-parameters" />
     </option>
   </component>
 </project>
