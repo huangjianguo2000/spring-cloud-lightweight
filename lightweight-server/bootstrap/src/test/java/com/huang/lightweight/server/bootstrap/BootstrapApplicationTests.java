@@ -1,10 +1,10 @@
-package com.huang.lightwightserver;
+package com.huang.lightweight.server.bootstrap;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LightWightServerApplicationTests {
+class BootstrapApplicationTests {
 
     @Test
     void contextLoads() {

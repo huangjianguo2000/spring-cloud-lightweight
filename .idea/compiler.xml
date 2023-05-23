@@ -7,15 +7,28 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="LightWightServer" />
+        <module name="core" />
         <module name="LightwightServer" />
-        <module name="spring-cloud-lightweight" />
+        <module name="bootstrap" />
+        <module name="api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api" target="8" />
+      <module name="bootstrap" target="&gt;1.8" />
+      <module name="core" target="8" />
+      <module name="lightweight-server" target="&gt;1.8" />
+      <module name="spring-cloud-lightweight" target="8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="LightWightServer" options="-parameters" />
       <module name="LightwightServer" options="-parameters" />
+      <module name="api" options="-parameters" />
+      <module name="bootstrap" options="-parameters" />
+      <module name="core" options="-parameters" />
+      <module name="lightweight-server" options="-parameters" />
     </option>
   </component>
 </project>
