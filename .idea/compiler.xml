@@ -10,8 +10,10 @@
         <module name="LightwightServer" />
         <module name="lightweight-common" />
         <module name="LightWightServer" />
+        <module name="lightweight-client" />
         <module name="bootstrap" />
         <module name="api" />
+        <module name="demo-test" />
         <module name="light-core" />
       </profile>
     </annotationProcessing>
@@ -19,7 +21,9 @@
       <module name="api" target="8" />
       <module name="bootstrap" target="&gt;1.8" />
       <module name="core" target="8" />
+      <module name="demo-test" target="1.8" />
       <module name="light-core" target="8" />
+      <module name="lightweight-client" target="1.8" />
       <module name="lightweight-common" target="8" />
       <module name="lightweight-server" target="&gt;1.8" />
       <module name="spring-cloud-lightweight" target="8" />
@@ -32,7 +36,9 @@
       <module name="api" options="-parameters" />
       <module name="bootstrap" options="-parameters" />
       <module name="core" options="-parameters" />
+      <module name="demo-test" options="-parameters" />
       <module name="light-core" options="-parameters" />
+      <module name="lightweight-client" options="-parameters" />
       <module name="lightweight-server" options="-parameters" />
     </option>
   </component>

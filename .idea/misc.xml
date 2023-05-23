@@ -5,6 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/lightweight-server/bootstrap/pom.xml" />
+        <option value="$PROJECT_DIR$/demo-test/pom.xml" />
+        <option value="$PROJECT_DIR$/lightweight-client/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
