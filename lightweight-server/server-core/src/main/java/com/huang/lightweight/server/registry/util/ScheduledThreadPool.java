@@ -13,8 +13,9 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.RunnableScheduledFuture;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -30,7 +31,7 @@ public class ScheduledThreadPool {
     /**
      * A map to store the tasks associated with each instance
      */
-    private Map<Instance, Runnable> taskMap;
+    private Map<Instance, ScheduledFuture> taskMap;
 
     private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
 
@@ -47,20 +48,18 @@ public class ScheduledThreadPool {
      * Executes a task for the specified instance.
      * @param instance The instance to execute the task for
      * @param cache The cache pool containing the instances
-     * @return true if the task is executed successfully, false if the task already exists for the instance
      */
-    public boolean execute(Instance instance, JvmCachePool<String, List<Instance>> cache) {
+    public void execute(Instance instance, JvmCachePool<String, List<Instance>> cache) {
         if (!checkTask(instance)) {
             // Task already exists for the instance
             LoggerUtils.printIfErrorEnabled(logger, "Task is already exist");
-            return false;
+            return;
         }
         Runnable task = () -> doCheckBeat(instance, cache);
         // submit
-        scheduledThreadPoolExecutor.scheduleAtFixedRate(task, Constants.HEART_BEAT_INTERVAL, Constants.HEART_BEAT_INTERVAL, MILLISECONDS);
+        RunnableScheduledFuture<?> scheduledFuture = (RunnableScheduledFuture<?>)scheduledThreadPoolExecutor.scheduleAtFixedRate(task, Constants.HEART_BEAT_INTERVAL, Constants.HEART_BEAT_INTERVAL, MILLISECONDS);
         // save task
-        taskMap.put(instance, task);
-        return true;
+        taskMap.put(instance, scheduledFuture);
     }
 
     /**
@@ -98,6 +97,10 @@ public class ScheduledThreadPool {
         if (interval > (Constants.HEART_BEAT_INTERVAL * 2)) {
             // If it exceeds, remove the instance from the cache pool
             removeInstance(instance, cache);
+            LoggerUtils.printIfDebugEnabled(logger, "remove task");
+            ScheduledFuture<?> runnable = taskMap.get(instance);
+            runnable.cancel(false);
+            taskMap.remove(instance);
         }
 
     }
