@@ -4,9 +4,9 @@
     <file url="file://$PROJECT_DIR$/demo-test/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/produce/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightweight-client/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lightweight-server/api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lightweight-server/bootstrap/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lightweight-server/light-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lightweight-server/server-bootstrap/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lightweight-server/server-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lightweight-server/server-web/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightweight-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightweight-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightwight-server/src/main/java" charset="UTF-8" />
