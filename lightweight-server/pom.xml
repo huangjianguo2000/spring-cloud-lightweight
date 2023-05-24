@@ -17,9 +17,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>bootstrap</module>
-        <module>api</module>
-        <module>light-core</module>
+        <module>server-bootstrap</module>
+        <module>server-web</module>
+        <module>server-core</module>
+        <module>server-config</module>
     </modules>
 
     <properties>

@@ -1,5 +1,7 @@
 package com.huang.lightweight.common.pojo;
 
+import com.huang.lightweight.common.pojo.instance.Instance;
+
 import java.util.List;
 
 /**

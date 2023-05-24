@@ -37,9 +37,17 @@ public enum ErrorCode {
     /**
      *  server error.
      */
-    SERVER_ERROR(30000, "server error");
+    SERVER_ERROR(30000, "server error"),
 
+    /**
+     *   instance already exist.
+     */
+    SERVER_INSTANCE_EXIST(30001, "instance already exist"),
 
+    /**
+     *   instance not exist.
+     */
+    SERVER_INSTANCE_NOT_EXIST(30002, "instance not exist"),
     ;
 
     

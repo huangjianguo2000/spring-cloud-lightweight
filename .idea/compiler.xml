@@ -16,6 +16,7 @@
         <module name="server-core" />
         <module name="demo" />
         <module name="produce" />
+        <module name="server-config" />
         <module name="demo-test" />
       </profile>
     </annotationProcessing>
@@ -28,6 +29,7 @@
       <module name="lightweight-server" target="&gt;1.8" />
       <module name="produce" target="1.8" />
       <module name="server-bootstrap" target="&gt;1.8" />
+      <module name="server-config" target="8" />
       <module name="server-core" target="8" />
       <module name="server-web" target="8" />
       <module name="spring-cloud-lightweight" target="8" />
@@ -43,6 +45,7 @@
       <module name="lightweight-server" options="-parameters" />
       <module name="produce" options="-parameters" />
       <module name="server-bootstrap" options="-parameters" />
+      <module name="server-config" options="-parameters" />
       <module name="server-core" options="-parameters" />
       <module name="server-web" options="-parameters" />
     </option>

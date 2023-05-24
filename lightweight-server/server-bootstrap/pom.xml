@@ -8,7 +8,7 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>bootstrap</artifactId>
+    <artifactId>server-bootstrap</artifactId>
     <version>${revision}</version>
     <name>bootstrap</name>
     <description>bootstrap</description>
@@ -27,7 +27,12 @@
         </dependency>
         <dependency>
             <groupId>com.huang.lightweight</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>server-web</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.huang.lightweight</groupId>
+            <artifactId>server-config</artifactId>
             <version>${revision}</version>
         </dependency>
 

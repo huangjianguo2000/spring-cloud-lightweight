@@ -1,4 +1,4 @@
-package com.huang.lightweight.common.pojo;
+package com.huang.lightweight.common.pojo.instance;
 
 import java.io.Serializable;
 
@@ -40,6 +40,18 @@ public class Instance implements Serializable {
      */
     private String serviceName;
 
+    /**
+     * last beat time
+     */
+    private volatile long lastBeat = System.currentTimeMillis();
+
+    public long getLastBeat() {
+        return lastBeat;
+    }
+
+    public void setLastBeat(long lastBeat) {
+        this.lastBeat = lastBeat;
+    }
 
     public String getInstanceId() {
         return instanceId;

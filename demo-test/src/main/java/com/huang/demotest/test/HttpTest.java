@@ -1,7 +1,7 @@
 package com.huang.demotest.test;
 
 import com.alibaba.fastjson.JSON;
-import com.huang.lightweight.common.pojo.Instance;
+import com.huang.lightweight.common.pojo.instance.Instance;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 import java.util.UUID;
 
 /**

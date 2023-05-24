@@ -1,0 +1,6 @@
+server:
+  port: 8527
+
+logging:
+  level:
+    com.huang: debug

@@ -1,6 +1,6 @@
 package com.huang.lightweight.server.registry.service;
 
-import com.huang.lightweight.common.pojo.Instance;
+import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
 
 import java.util.List;
@@ -11,15 +11,21 @@ import java.util.List;
  * @Author lightweight
  * @Date 2023/5/23 11:28
  */
-public interface RegistryService {
+public interface InstanceService {
 
     /**
      * regitry to server
      *
      * @param instance instance
-     * @return true success false fail
      */
-    boolean registry(Instance instance);
+    void registerInstance(Instance instance) throws Exception;
+
+    /**
+     * update to server
+     *
+     * @param instance instance
+     */
+    void updateInstance(Instance instance) throws Exception;
 
     /**
      * Returns a list of InstanceWrapper objects containing instances from the cache.

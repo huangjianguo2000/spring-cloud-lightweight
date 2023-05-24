@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>api</artifactId>
+    <artifactId>server-web</artifactId>
     <version>${revision}</version>
     <name>api</name>
     <description>restful-api</description>
@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.huang.lightweight</groupId>
-            <artifactId>light-core</artifactId>
+            <artifactId>server-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

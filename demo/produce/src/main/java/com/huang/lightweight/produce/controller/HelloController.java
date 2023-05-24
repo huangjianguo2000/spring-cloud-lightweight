@@ -1,7 +1,7 @@
 package com.huang.lightweight.produce.controller;
 
 import com.huang.lightweight.common.model.v1.Result;
-import com.huang.lightweight.common.pojo.Instance;
+import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,14 +1,17 @@
 package com.huang.lightweight.server.registry.service.impl;
 
-import com.huang.lightweight.common.pojo.Instance;
+import com.huang.lightweight.common.exception.LightWeightException;
+import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
-import com.huang.lightweight.server.registry.service.RegistryService;
+import com.huang.lightweight.common.util.common.NodeObjectUtil;
+import com.huang.lightweight.server.registry.service.InstanceService;
 import com.huang.lightweight.server.registry.util.InstanceCachePool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * RegistryServiceImpl
@@ -17,7 +20,7 @@ import java.util.List;
  * @Date 2023/5/23 11:28
  */
 @Service
-public class RegistryServiceImpl implements RegistryService {
+public class InstanceServiceImpl implements InstanceService {
 
     @Autowired
     private InstanceCachePool instanceCachePool;
@@ -29,9 +32,19 @@ public class RegistryServiceImpl implements RegistryService {
      * @return true success false fail
      */
     @Override
-    public boolean registry(Instance instance) {
+    public void registerInstance(Instance instance) throws LightWeightException {
+        instance.setInstanceId(UUID.randomUUID().toString());
         instanceCachePool.put(instance.getServiceName(), instance);
-        return true;
+    }
+
+    /**
+     * update to server
+     *
+     * @param instance instance
+     */
+    @Override
+    public void updateInstance(Instance instance) throws Exception {
+        instanceCachePool.update(instance.getServiceName(), instance);
     }
 
     /**

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>server-core</artifactId>
+    <artifactId>server-config</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,13 +17,11 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-web</artifactId>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>com.huang.lightweight</groupId>
             <artifactId>lightweight-common</artifactId>
