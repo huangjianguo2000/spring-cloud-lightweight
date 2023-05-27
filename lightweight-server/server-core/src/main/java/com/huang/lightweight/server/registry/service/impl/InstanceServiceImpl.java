@@ -1,9 +1,8 @@
 package com.huang.lightweight.server.registry.service.impl;
 
-import com.huang.lightweight.common.exception.LightWeightException;
+import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
-import com.huang.lightweight.common.util.common.NodeObjectUtil;
 import com.huang.lightweight.server.registry.service.InstanceService;
 import com.huang.lightweight.server.registry.util.InstanceCachePool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class InstanceServiceImpl implements InstanceService {
      * @return true success false fail
      */
     @Override
-    public void registerInstance(Instance instance) throws LightWeightException {
+    public void registerInstance(Instance instance) throws LightweightException {
         instance.setInstanceId(UUID.randomUUID().toString());
         instanceCachePool.put(instance.getServiceName(), instance);
     }

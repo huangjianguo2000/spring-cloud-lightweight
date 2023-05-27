@@ -24,21 +24,21 @@ import java.util.Objects;
  * @author touwowo0320
  * @date 2023/05/25
  */
-public final class RestClient {
+public final class HttpClientUtil {
 
-    private final Logger logger = LoggerFactory.getLogger(RestClient.class);
+    private final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
-    private static final RestClient INSTANCE = new RestClient();
+    private static final HttpClientUtil INSTANCE = new HttpClientUtil();
 
-    private RestClient() {
+    private HttpClientUtil() {
     }
 
     /**
      * 获get RestClient instance
      *
-     * @return {@link RestClient}
+     * @return {@link HttpClientUtil}
      */
-    public static RestClient getInstance() {
+    public static HttpClientUtil getInstance() {
         return INSTANCE;
     }
 

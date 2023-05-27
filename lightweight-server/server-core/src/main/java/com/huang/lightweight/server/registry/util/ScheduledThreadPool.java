@@ -26,12 +26,12 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 @Component
 public class ScheduledThreadPool {
 
-    private  Logger logger = LoggerFactory.getLogger(ScheduledThreadPool.class);
+    private final Logger logger = LoggerFactory.getLogger(ScheduledThreadPool.class);
 
     /**
      * A map to store the tasks associated with each instance
      */
-    private Map<Instance, ScheduledFuture> taskMap;
+    private Map<Instance, ScheduledFuture<?>> taskMap;
 
     private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
 

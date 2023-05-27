@@ -1,6 +1,6 @@
 package com.huang.lightweight.server.registry.util;
 
-import com.huang.lightweight.common.exception.LightWeightException;
+import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.model.v1.ErrorCode;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.util.cache.JvmCachePool;
@@ -31,14 +31,14 @@ public class InstanceCachePool {
      * @param value The value to be stored in the cache pool
      * @return ture/false already had one
      */
-    public synchronized void put(String key, Instance value) throws LightWeightException {
+    public synchronized void put(String key, Instance value) throws LightweightException {
         if (cache.containsKey(key)) {
             // check old value
             List<Instance> list = cache.get(key);
             for (int i = 0; i < list.size(); i++) {
                 Instance instance = list.get(i);
                 if (instance.getIp().equals(value.getIp()) && instance.getPort() == value.getPort()) {
-                    throw new LightWeightException(ErrorCode.SERVER_INSTANCE_EXIST,
+                    throw new LightweightException(ErrorCode.SERVER_INSTANCE_EXIST,
                             value.getIp() + ":" + value.getPort() + ", instance is already exist");
                 }
             }
@@ -62,7 +62,7 @@ public class InstanceCachePool {
      * @param value The value to be stored in the cache pool
      * @return ture/false not exit
      */
-    public synchronized void update(String key, Instance value) throws LightWeightException {
+    public synchronized void update(String key, Instance value) throws LightweightException {
         List<Instance> list = cache.get(key);
         for (int i = 0; i < list.size(); i++) {
             Instance instance = list.get(i);
@@ -71,7 +71,7 @@ public class InstanceCachePool {
                 return;
             }
         }
-        throw new LightWeightException(ErrorCode.SERVER_INSTANCE_NOT_EXIST,
+        throw new LightweightException(ErrorCode.SERVER_INSTANCE_NOT_EXIST,
                 value.getIp() + ":" + value.getPort() + ", instance not exist");
     }
 

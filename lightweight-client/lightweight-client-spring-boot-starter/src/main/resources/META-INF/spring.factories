@@ -1,3 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.huang.lightweight.client.LightWeightAutoConfiguration,\
-  com.huang.lightweight.client.register.LightWeightRegistryAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.huang.lightweight.client.registry.LightweightServiceRegistryAutoConfiguration
 

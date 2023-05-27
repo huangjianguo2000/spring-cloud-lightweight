@@ -16,9 +16,8 @@
 
 package com.huang.lightweight.server.exception;
 
-import com.huang.lightweight.common.exception.LightWeightException;
+import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.model.v1.Result;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -37,10 +36,10 @@ public class GlobalExceptionHandler {
     /**
      * For NacosException.
      *
-     * @throws LightWeightException
+     * @throws LightweightException
      */
-    @ExceptionHandler(LightWeightException.class)
-    public Result<String> handleLightWeightException(LightWeightException ex) throws IOException {
+    @ExceptionHandler(LightweightException.class)
+    public Result<String> handleLightWeightException(LightweightException ex) throws IOException {
         return  Result.failure(ex.getErrCode(), ex.getErrMsg());
     }
 

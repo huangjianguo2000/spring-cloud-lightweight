@@ -11,5 +11,5 @@ public class Constants {
     public static final String NULL = "";
 
     // Heartbeat detection interval default 15000 ms
-    public static final int HEART_BEAT_INTERVAL = 1500;
+    public static final int HEART_BEAT_INTERVAL = 15000;
 }

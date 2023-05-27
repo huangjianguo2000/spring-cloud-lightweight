@@ -8,7 +8,7 @@ import com.huang.lightweight.common.util.common.StringUtils;
  * @Author lightweight
  * @Date 2023/5/24 14:22
  */
-public class LightWeightException extends Exception {
+public class LightweightException extends Exception {
 
     /**
      * serialVersionUID.
@@ -21,22 +21,22 @@ public class LightWeightException extends Exception {
 
     private Throwable causeThrowable;
 
-    public LightWeightException() {
+    public LightweightException() {
     }
 
-    public LightWeightException(final ErrorCode errCode, final String errMsg) {
+    public LightweightException(final ErrorCode errCode, final String errMsg) {
         super(errMsg);
         this.errCode = errCode;
         this.errMsg = errMsg;
     }
 
-    public LightWeightException(final ErrorCode errCode, final Throwable throwable) {
+    public LightweightException(final ErrorCode errCode, final Throwable throwable) {
         super(throwable);
         this.errCode = errCode;
         this.setCauseThrowable(throwable);
     }
 
-    public LightWeightException(final ErrorCode errCode, final String errMsg, final Throwable throwable) {
+    public LightweightException(final ErrorCode errCode, final String errMsg, final Throwable throwable) {
         super(errMsg, throwable);
         this.errCode = errCode;
         this.errMsg = errMsg;
