@@ -1,6 +1,6 @@
 package com.huang.lightweight.client.naming.net;
 
-import com.huang.lightweight.client.constant.UrlConstant;
+import com.huang.lightweight.client.constant.URLConstant;
 import com.huang.lightweight.client.util.http.HttpClientUtil;
 import com.huang.lightweight.client.util.http.HttpResult;
 import com.huang.lightweight.common.pojo.instance.Instance;
@@ -58,12 +58,12 @@ public class NamingProxy {
      */
     public void registerService(String serviceName, Instance instance) {
 
-        LoggerUtils.printIfInfoEnabled(logger, "[registering service {} with instance: {}", serviceName, instance);
+        LoggerUtils.printIfInfoEnabled(logger, "[registering service {} with instance: {}]", serviceName, instance);
 
         instance.setServiceName(serviceName);
 
         // Send a POST request to register the instance
-        HttpResult httpResult = HttpClientUtil.getInstance().post(lightweightDomain + UrlConstant.instanceUrl, new HashMap<>(), instance);
+        HttpResult httpResult = HttpClientUtil.getInstance().post(lightweightDomain + URLConstant.instanceUrl, new HashMap<>(), instance);
 
         if (httpResult.getCode() == HttpStatus.SC_OK) {
             LoggerUtils.printIfInfoEnabled(logger, "register success");
@@ -72,14 +72,13 @@ public class NamingProxy {
         }
     }
 
-    private void initRefreshTask() {
-        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(2, new ThreadFactory() {
-            public Thread newThread(Runnable r) {
-                Thread t = new Thread(r);
-                t.setName("com.huang.lightweight.client.naming.updater");
-                t.setDaemon(true);
-                return t;
-            }
-        });
+    public void sendBeat(Instance instance){
+        LoggerUtils.printIfDebugEnabled(logger, "[send beat {} with instance: {}]", instance);
+        HttpResult httpResult = HttpClientUtil.getInstance().post(lightweightDomain + URLConstant.SEND_BEAT, new HashMap<>(), instance);
+        if (httpResult.getCode() == HttpStatus.SC_OK) {
+            LoggerUtils.printIfDebugEnabled(logger, "send beat success");
+        } else {
+            LoggerUtils.printIfInfoEnabled(logger, "send beat fail, res = " + httpResult);
+        }
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
  * @author lightweight
  */
 @Component
-public class InstanceCachePool {
+public class ServiceManager {
 
     private final JvmCachePool<String, List<Instance>> cache = new JvmCachePool<>();
 

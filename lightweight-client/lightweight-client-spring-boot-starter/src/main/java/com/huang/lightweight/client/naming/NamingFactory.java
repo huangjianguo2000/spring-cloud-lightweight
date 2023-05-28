@@ -6,6 +6,7 @@ import com.huang.lightweight.common.model.v1.ErrorCode;
 import java.util.Properties;
 
 public class NamingFactory {
+
     private NamingFactory() {
         // private constructor to prevent instantiation
     }

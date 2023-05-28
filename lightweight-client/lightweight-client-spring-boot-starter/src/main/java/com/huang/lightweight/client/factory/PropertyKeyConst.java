@@ -8,8 +8,11 @@ package com.huang.lightweight.client.factory;
  */
 public class PropertyKeyConst {
 
+    private PropertyKeyConst() {
+        // private constructor to prevent instantiation
+    }
 
-    public final static String SERVER_ADDRESS = "serverAddress";
+    public static final String SERVER_ADDRESS = "serverAddress";
 
 
 

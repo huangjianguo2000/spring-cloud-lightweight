@@ -8,6 +8,10 @@ import java.util.Properties;
 
 public class LightweightFactory {
 
+    private LightweightFactory() {
+        // private constructor to prevent instantiation
+    }
+
     /**
      * Create naming service
      *

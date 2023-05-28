@@ -1,7 +1,10 @@
 package com.huang.lightweight.client.naming;
 
 import com.huang.lightweight.client.factory.PropertyKeyConst;
+import com.huang.lightweight.client.naming.beat.BeatInfo;
+import com.huang.lightweight.client.naming.beat.BeatReactor;
 import com.huang.lightweight.client.naming.net.NamingProxy;
+import com.huang.lightweight.common.common.Constants;
 import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import org.slf4j.Logger;
@@ -14,10 +17,10 @@ public class LightweightNamingService implements NamingService {
 
     private final Logger logger = LoggerFactory.getLogger(LightweightNamingService.class);
 
-    /**
-     * network proxy object
-     */
+
     private NamingProxy serverProxy;
+
+    private BeatReactor beatReactor;
 
     /**
      * server ip list like xxx:xx,xxx:xx
@@ -36,7 +39,16 @@ public class LightweightNamingService implements NamingService {
      */
     @Override
     public void registerInstance(String serviceName, Instance instance) {
+
+        BeatInfo beatInfo = new BeatInfo();
+        beatInfo.setServiceName(serviceName);
+        beatInfo.setIp(instance.getIp());
+        beatInfo.setPort(instance.getPort());
+        beatInfo.setPeriod(Constants.DEFAULT_HEART_BEAT_INTERVAL);
+
+        beatReactor.addBeatInfo(beatInfo);
         serverProxy.registerService(serviceName, instance);
+
     }
 
     /**
@@ -59,6 +71,7 @@ public class LightweightNamingService implements NamingService {
     public void init(Properties properties) {
         initServerAddress(properties);
         serverProxy = new NamingProxy(serverList, properties);
+        beatReactor = new BeatReactor(serverProxy, Constants.DEFAULT_CLIENT_BEAT_THREAD_COUNT);
     }
 
     /**

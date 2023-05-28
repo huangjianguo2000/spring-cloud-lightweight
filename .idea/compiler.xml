@@ -6,18 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="core" />
         <module name="LightwightServer" />
-        <module name="server-web" />
         <module name="lightweight-common" />
-        <module name="server-bootstrap" />
-        <module name="LightWightServer" />
-        <module name="lightweight-client" />
         <module name="server-core" />
         <module name="demo" />
         <module name="produce" />
         <module name="server-config" />
         <module name="demo-test" />
+        <module name="core" />
+        <module name="lightweight-client-spring-boot-starter" />
+        <module name="server-web" />
+        <module name="server-bootstrap" />
+        <module name="LightWightServer" />
+        <module name="test-produce" />
+        <module name="test-consumer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,6 +27,7 @@
       <module name="demo" target="8" />
       <module name="demo-test" target="1.8" />
       <module name="lightweight-client" target="1.8" />
+      <module name="lightweight-client-spring-boot-starter" target="8" />
       <module name="lightweight-common" target="8" />
       <module name="lightweight-server" target="&gt;1.8" />
       <module name="produce" target="1.8" />
@@ -33,6 +36,8 @@
       <module name="server-core" target="8" />
       <module name="server-web" target="8" />
       <module name="spring-cloud-lightweight" target="8" />
+      <module name="test-consumer" target="1.8" />
+      <module name="test-produce" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -42,12 +47,15 @@
       <module name="core" options="-parameters" />
       <module name="demo-test" options="-parameters" />
       <module name="lightweight-client" options="-parameters" />
+      <module name="lightweight-client-spring-boot-starter" options="-parameters" />
       <module name="lightweight-server" options="-parameters" />
       <module name="produce" options="-parameters" />
       <module name="server-bootstrap" options="-parameters" />
       <module name="server-config" options="-parameters" />
       <module name="server-core" options="-parameters" />
       <module name="server-web" options="-parameters" />
+      <module name="test-consumer" options="-parameters" />
+      <module name="test-produce" options="-parameters" />
     </option>
   </component>
 </project>
