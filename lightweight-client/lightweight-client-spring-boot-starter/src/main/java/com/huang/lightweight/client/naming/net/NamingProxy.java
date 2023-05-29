@@ -1,8 +1,8 @@
 package com.huang.lightweight.client.naming.net;
 
 import com.huang.lightweight.client.constant.URLConstant;
-import com.huang.lightweight.client.util.http.HttpClientUtil;
-import com.huang.lightweight.client.util.http.HttpResult;
+import com.huang.lightweight.common.util.http.HttpClientUtil;
+import com.huang.lightweight.common.util.http.HttpResult;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.util.common.LoggerUtils;
 import com.huang.lightweight.common.util.common.StringUtils;
@@ -11,9 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadFactory;
 
 public class NamingProxy {
 

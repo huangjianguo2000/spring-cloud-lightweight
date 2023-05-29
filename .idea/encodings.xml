@@ -4,8 +4,11 @@
     <file url="file://$PROJECT_DIR$/demo-test/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-test/test-consumer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-test/test-produce/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo/consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo/consumer/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/produce/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightweight-client/lightweight-client-spring-boot-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lightweight-client/lightweight-liteconnect/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightweight-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightweight-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lightweight-server/server-bootstrap/src/main/java" charset="UTF-8" />

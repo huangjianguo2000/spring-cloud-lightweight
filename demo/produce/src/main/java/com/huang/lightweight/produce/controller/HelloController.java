@@ -32,5 +32,8 @@ public class HelloController {
     public Result<List<InstanceWrapper>> listInstance(){
         return Result.success();
     }
-
+    @GetMapping("/hello")
+    public Result<String> hello(){
+        return Result.success("hello word of 9001");
+    }
 }

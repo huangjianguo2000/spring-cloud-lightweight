@@ -24,14 +24,9 @@ import static org.springframework.util.ReflectionUtils.rethrowRuntimeException;
 public class LightweightServiceRegistry implements ServiceRegistry<Registration> {
 
     private final Logger logger = LoggerFactory.getLogger(LightweightServiceRegistry.class);
-
-    /**
-     * The class that is doing something
-     *
-     */
+    
     private final NamingService namingService;
-
-
+    
     public LightweightServiceRegistry(LightweightDiscoveryProperties lightweightDiscoveryProperties) {
         this.namingService = lightweightDiscoveryProperties.getNamingService();
     }

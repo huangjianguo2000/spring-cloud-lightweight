@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/demo/produce/pom.xml" />
         <option value="$PROJECT_DIR$/demo-test/test-produce/pom.xml" />
         <option value="$PROJECT_DIR$/demo-test/test-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/consumer/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

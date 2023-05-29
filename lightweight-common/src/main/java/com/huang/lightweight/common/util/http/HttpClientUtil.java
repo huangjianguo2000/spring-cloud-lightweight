@@ -1,10 +1,11 @@
-package com.huang.lightweight.client.util.http;
+package com.huang.lightweight.common.util.http;
 
 import com.alibaba.fastjson.JSON;
 import com.huang.lightweight.common.util.common.LoggerUtils;
 import com.huang.lightweight.common.util.common.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -15,6 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -67,6 +72,50 @@ public final class HttpClientUtil {
             httpResult.setCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
             LoggerUtils.printIfErrorEnabled(logger, "exec post request error!");
         }
+        return httpResult;
+    }
+
+    public HttpResult get(String url) {
+        return this.get(url, new HashMap<>(), new HashMap<>());
+    }
+
+    public HttpResult get(String url, Map<String, String> params) {
+        return this.get(url, new HashMap<>(), params);
+    }
+
+    public HttpResult get(String url, Map<String, String> header, Map<String, String> params) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        // Build the query string with parameters
+        StringBuilder query = new StringBuilder();
+        if (params != null && !params.isEmpty()) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                if (query.length() > 0) {
+                    query.append("&");
+                }
+                try {
+                    query.append(entry.getKey()).append("=").append(URLEncoder.encode(entry.getValue(), String.valueOf(StandardCharsets.UTF_8)));
+                } catch (Exception e) {
+                    LoggerUtils.printIfErrorEnabled(logger, "query append error : e = {}", e);
+                }
+            }
+            url += "?" + query;
+        }
+
+        HttpGet get = new HttpGet(url);
+        if (Objects.nonNull(header) && !header.isEmpty()) {
+            header.forEach(get::setHeader);
+        }
+
+        HttpResult httpResult = new HttpResult();
+        try {
+            HttpResponse execute = httpClient.execute(get);
+            httpResult.setCode(execute.getStatusLine().getStatusCode());
+            httpResult.setBody(EntityUtils.toString(execute.getEntity()));
+        } catch (IOException e) {
+            httpResult.setCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+            LoggerUtils.printIfErrorEnabled(logger, "exec get request error!");
+        }
+
         return httpResult;
     }
 

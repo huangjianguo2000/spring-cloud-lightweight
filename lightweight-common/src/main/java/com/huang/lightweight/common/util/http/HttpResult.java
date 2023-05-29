@@ -1,4 +1,4 @@
-package com.huang.lightweight.client.util.http;
+package com.huang.lightweight.common.util.http;
 
 /**
  * HttpResult

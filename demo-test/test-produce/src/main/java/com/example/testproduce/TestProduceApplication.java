@@ -2,12 +2,14 @@ package com.example.testproduce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class TestProduceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TestProduceApplication.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(TestProduceApplication.class, args);
+
     }
 
 }
