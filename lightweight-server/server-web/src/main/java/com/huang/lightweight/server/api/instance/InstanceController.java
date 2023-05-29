@@ -1,5 +1,6 @@
 package com.huang.lightweight.server.api.instance;
 
+import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.model.v1.Result;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
@@ -54,5 +55,9 @@ public class InstanceController {
     public Result<List<InstanceWrapper>> listInstance(){
         return Result.success(instanceService.listInstances());
     }
-
+    @PostMapping("/beat")
+    public Result<Void> beat(@RequestBody Instance instance) throws LightweightException {
+        instanceService.beat(instance);
+        return Result.success();
+    }
 }

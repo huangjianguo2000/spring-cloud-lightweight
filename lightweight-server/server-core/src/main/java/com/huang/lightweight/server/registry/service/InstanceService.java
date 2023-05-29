@@ -1,5 +1,6 @@
 package com.huang.lightweight.server.registry.service;
 
+import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
 
@@ -33,4 +34,6 @@ public interface InstanceService {
      * @return A list of InstanceWrapper objects
      */
     List<InstanceWrapper> listInstances();
+
+    void beat(Instance instance) throws LightweightException;
 }

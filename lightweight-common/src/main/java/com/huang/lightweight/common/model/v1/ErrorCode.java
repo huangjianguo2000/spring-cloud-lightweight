@@ -35,6 +35,16 @@ public enum ErrorCode {
     PARAMETER_MISSING(10000, "parameter missing"),
 
     /**
+     *  parameter error.
+     */
+    PARAMETER_ERROR(10001, "parameter error"),
+
+    /**
+     *  create naming service error.
+     */
+    CREATE_NAMING_SERVICE_ERROR(10002, "create naming service error"),
+
+    /**
      *  server error.
      */
     SERVER_ERROR(30000, "server error"),
