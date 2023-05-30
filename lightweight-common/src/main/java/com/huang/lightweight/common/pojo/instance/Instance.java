@@ -1,6 +1,8 @@
 package com.huang.lightweight.common.pojo.instance;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Instance.
@@ -39,6 +41,21 @@ public class Instance implements Serializable {
      * Service information of instance.
      */
     private String serviceName;
+
+    /**
+     * weight
+     */
+    private Integer weight;
+
+    /**
+     * clusterName
+     */
+    private String clusterName;
+
+    /**
+     * metadata
+     */
+    private Map<String, String> metadata = new HashMap();
 
     /**
      * last beat time
@@ -99,5 +116,29 @@ public class Instance implements Serializable {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public String getClusterName() {
+        return clusterName;
+    }
+
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
+    }
+
+    public Map<String, String> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, String> metadata) {
+        this.metadata = metadata;
     }
 }

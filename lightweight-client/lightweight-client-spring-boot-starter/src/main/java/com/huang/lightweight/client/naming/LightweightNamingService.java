@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class LightweightNamingService implements NamingService {
@@ -60,7 +61,8 @@ public class LightweightNamingService implements NamingService {
      */
     @Override
     public List<Instance> getAllInstances(String serviceName) throws LightweightException {
-        return null;
+        Map<String, List<Instance>> stringListMap = serverProxy.listInstance();
+        return stringListMap.get(serviceName);
     }
 
     /**

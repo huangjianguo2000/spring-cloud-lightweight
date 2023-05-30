@@ -55,6 +55,13 @@ public class InstanceController {
     public Result<List<InstanceWrapper>> listInstance(){
         return Result.success(instanceService.listInstances());
     }
+
+    /**
+     * beat
+     * @param instance
+     * @return
+     * @throws LightweightException
+     */
     @PostMapping("/beat")
     public Result<Void> beat(@RequestBody Instance instance) throws LightweightException {
         instanceService.beat(instance);

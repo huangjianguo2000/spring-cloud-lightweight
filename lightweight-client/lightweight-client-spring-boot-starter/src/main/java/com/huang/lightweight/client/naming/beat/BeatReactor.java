@@ -15,9 +15,9 @@ public class BeatReactor {
 
     private final Logger logger = LoggerFactory.getLogger(BeatReactor.class);
 
-    private NamingProxy serverProxy;
+    private final NamingProxy serverProxy;
 
-    private ScheduledExecutorService executorService;
+    private final ScheduledExecutorService executorService;
 
     public BeatReactor(NamingProxy serverProxy, int threadCount) {
         this.serverProxy = serverProxy;
@@ -36,7 +36,7 @@ public class BeatReactor {
 
     class BeatTask implements Runnable {
 
-        private BeatInfo beatInfo;
+        private final BeatInfo beatInfo;
 
         public BeatTask(BeatInfo beatInfo) {
             this.beatInfo = beatInfo;
