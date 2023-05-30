@@ -7,6 +7,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(TestRegistrar.class)
+@Import(ConnectClientsRegistrar.class)
 public @interface EnableConnectClients {
 }

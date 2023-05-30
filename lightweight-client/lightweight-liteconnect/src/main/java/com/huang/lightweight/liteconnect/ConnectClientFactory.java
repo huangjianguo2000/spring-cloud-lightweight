@@ -52,25 +52,42 @@ public class ConnectClientFactory implements FactoryBean<Object>, ApplicationCon
 
     private class ConnectClientInvocationHandler implements InvocationHandler {
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-            String serviceName = ((ConnectClient) interfaceClass.getAnnotation(ConnectClient.class)).name();
+        public String invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            String serviceName = interfaceClass.getAnnotation(ConnectClient.class).name();
             DiscoveryClient discoveryClient = applicationContext.getBean(DiscoveryClient.class);
             List<ServiceInstance> instances = discoveryClient.getInstances(serviceName);
 
-            // get Annotation GetMapping
             GetMapping getMapping = method.getAnnotation(GetMapping.class);
             if (getMapping != null) {
                 String[] value = getMapping.value();
-                if (value != null && value.length > 0 && "/hello".equals(value[0])) {
-                    String url = "http://" + instances.get(0).getHost() + ":" + instances.get(0).getPort();
-                    HttpResult httpResult = HttpClientUtil.getInstance().get(url + value[0]);
-                    return httpResult.getBody();
+                if (value.length > 0) {
+                    String url = "http://" + instances.get(0).getHost() + ":" + instances.get(0).getPort() + value[0];
+                    try {
+                        HttpResult httpResult = HttpClientUtil.getInstance().get(url);
+                        if (httpResult.getBody() != null) {
+                            return httpResult.getBody();
+                        } else {
+                            // Handle null response or body
+                            return "Empty response or body";
+                        }
+                    } catch (Exception e) {
+                        // Handle exception
+                        return "Error occurred: " + e.getMessage();
+                    }
+                } else {
+                    // Handle empty value
+                    return "Empty URL value";
                 }
             }
 
             return "error";
         }
+        @Override
+        public boolean equals(Object obj) {
+            // Your equals() implementation logic
+            return true;
+        }
+
     }
 
 }
