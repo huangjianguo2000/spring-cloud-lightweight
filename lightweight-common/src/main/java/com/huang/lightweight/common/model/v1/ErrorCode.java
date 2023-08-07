@@ -58,6 +58,12 @@ public enum ErrorCode {
      *   instance not exist.
      */
     SERVER_INSTANCE_NOT_EXIST(30002, "instance not exist"),
+
+
+    /**
+     *   set web ip exception
+     */
+    SERVER_SET_WEB_IP_EXCEPTION(30003, "set web ip exception"),
     ;
 
     

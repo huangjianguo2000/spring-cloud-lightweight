@@ -19,7 +19,7 @@
     <name>lightweight-client</name>
     <description>lightweight-client</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
         <github.global.server>github</github.global.server>
         <spring.boot.starter.version>2.2.6.RELEASE</spring.boot.starter.version>
         <httpclient.version>4.5.13</httpclient.version>

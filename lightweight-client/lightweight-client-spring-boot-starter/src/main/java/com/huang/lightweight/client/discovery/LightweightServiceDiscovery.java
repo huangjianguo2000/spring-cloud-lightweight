@@ -20,6 +20,12 @@ public class LightweightServiceDiscovery {
         this.discoveryProperties = lightweightDiscoveryProperties;
     }
 
+    /**
+     *
+     * @param serviceId
+     * @return
+     * @throws LightweightException
+     */
     public List<ServiceInstance> getInstances(String serviceId) throws LightweightException {
         List<Instance> instances = this.discoveryProperties.getNamingService().getAllInstances(serviceId);
         return hostToServiceInstanceList(instances, serviceId);

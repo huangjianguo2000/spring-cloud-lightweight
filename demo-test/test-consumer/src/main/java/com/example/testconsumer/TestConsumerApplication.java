@@ -12,7 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class TestConsumerApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext run = SpringApplication.run(TestConsumerApplication.class, args);
+        SpringApplication.run(TestConsumerApplication.class, args);
     }
 
 }

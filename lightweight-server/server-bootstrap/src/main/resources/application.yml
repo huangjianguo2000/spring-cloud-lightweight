@@ -1,5 +1,5 @@
 server:
-  port: 8527
+  port: 5013
 
 spring:
   resources:

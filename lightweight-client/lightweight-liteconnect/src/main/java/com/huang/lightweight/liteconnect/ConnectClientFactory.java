@@ -53,8 +53,11 @@ public class ConnectClientFactory implements FactoryBean<Object>, ApplicationCon
     private class ConnectClientInvocationHandler implements InvocationHandler {
         @Override
         public String invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            // 服务名称
             String serviceName = interfaceClass.getAnnotation(ConnectClient.class).name();
+            // 服务发现客户端
             DiscoveryClient discoveryClient = applicationContext.getBean(DiscoveryClient.class);
+            // 服务实例
             List<ServiceInstance> instances = discoveryClient.getInstances(serviceName);
 
             GetMapping getMapping = method.getAnnotation(GetMapping.class);

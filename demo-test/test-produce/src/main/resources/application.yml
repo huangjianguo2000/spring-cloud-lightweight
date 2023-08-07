@@ -1,0 +1,11 @@
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: test-produce
+  cloud:
+    lightweight:
+      discovery:
+        server-address: http://8.131.60.15:5013

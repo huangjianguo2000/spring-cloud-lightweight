@@ -85,6 +85,10 @@ public class NamingProxy {
         }
     }
 
+    /**
+     * 查询注册中心的所有服务实例
+     * @return res
+     */
     public Map<String, List<Instance>> listInstance(){
         HttpResult httpResult = HttpClientUtil.getInstance().get(lightweightDomain + URLConstant.instanceUrl);
         Map<String, List<Instance>> ans = new HashMap<>();
