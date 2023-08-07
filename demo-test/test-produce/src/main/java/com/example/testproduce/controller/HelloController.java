@@ -19,4 +19,10 @@ public class HelloController {
     public Result<String> hello(){
         return Result.success("hello word of produce");
     }
+
+
+    @GetMapping("/hello2")
+    public Result<String> hello2(){
+        return Result.success("hello word of produce");
+    }
 }
