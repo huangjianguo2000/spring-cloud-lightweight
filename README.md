@@ -1,39 +1,133 @@
-# spring-cloud-lightweigh
+# spring-cloud-lightweight
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+## 介绍
 
-#### 软件架构
-软件架构说明
+**spring-cloud-lightweight** 是一个轻量级的服务治理框架，旨在简化分布式系统中的服务注册与发现、负载均衡等常用功能，使开发人员能够更加便捷地构建分布式微服务应用。
+
+## 软件架构
+
+该框架基于 Spring Cloud 技术栈，并集成了 Nacos 作为注册中心，通过自定义的自动配置类和核心组件，实现了服务注册与发现、负载均衡等功能。
+
+## 安装教程
+
+### 服务注册与发现
+
+#### 部署服务端
+
+**免安装**
+
+测试使用，可以直接使用部署好的地址：http://8.131.60.15:5013 
+
+**安装教程**
+
+下载服务端Jar包，下载地址：[点击下载](https://gitee.com/huangjianguo2000/spring-cloud-lightweigh/releases/download/server-v1.0/server-bootstrap-0.0.1-SNAPSHOT.jar)
+
+下载完成以后直接使用java -jar 命令运行。 若需修改端口，可以在统计目录下新增配置文件。
+
+#### 客户端使用
+
+导入pom依赖， 需要配置一个远程仓库地址。
+
+```pom
+    <dependencies>
+        <dependency>
+            <groupId>com.huang.lightweight</groupId>
+            <artifactId>lightweight-client-spring-boot-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>handsomehuang-maven</id>
+            <url>https://gitee.com/huangjianguo2000/maven-repository/raw/master</url>
+        </repository>
+    </repositories>
+```
+
+配置注册中心地址：
+
+```java
+spring:
+  application:
+    name: test-produce
+  cloud:
+    lightweight:
+      discovery:
+        server-address: http://localhost:5013
+```
+
+启动后在注册中心看见服务注册上去即代表服务注册成功。
+
+### 远程服务调用
+
+1. 引入依赖
+
+```pom
+	<dependencies>
+          <dependency>
+            <groupId>com.huang.lightweight</groupId>
+            <artifactId>lightweight-liteconnect</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>handsomehuang-maven</id>
+            <url>https://gitee.com/huangjianguo2000/maven-repository/raw/master</url>
+        </repository>
+    </repositories>
+```
+
+2. 在启动类上开启**@EnableConnectClients**
+
+```java
+
+@SpringBootApplication
+@EnableConnectClients
+public class TestConsumerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(TestConsumerApplication.class, args);
+    }
+
+}
+
+```
+
+3. 定义远端接口
+
+```java
+
+@ConnectClient(name = "test-produce", beanName = "helloClient")
+public interface HelloClient {
+
+    @GetMapping("/hello")
+    String hello();
+
+}
+
+```
+
+4. 使用
+
+```java
+@RestController
+public class HelloController {
+
+    @Autowired
+    private HelloClient helloClient;
+
+    @GetMapping("/hello")
+    public String hello(){
+        return helloClient.hello();
+    }
+
+}
+```
 
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  x
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
 
 
-#### 特技
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
