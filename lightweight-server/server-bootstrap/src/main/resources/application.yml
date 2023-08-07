@@ -1,0 +1,13 @@
+server:
+  port: 8527
+
+spring:
+  resources:
+    static-locations: classpath:/templates/
+  mvc:
+    view:
+      suffix: .html
+
+logging:
+  level:
+    com.huang: debug

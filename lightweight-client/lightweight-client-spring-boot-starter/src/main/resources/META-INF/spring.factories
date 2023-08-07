@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.huang.lightweight.client.registry.LightweightServiceRegistryAutoConfiguration,\
+  com.huang.lightweight.client.discovery.LightweightDiscoveryAutoConfiguration,\
+  com.huang.lightweight.client.discovery.LightweightDiscoveryClientConfiguration
+
