@@ -107,13 +107,16 @@ public final class HttpClientUtil {
         }
 
         HttpResult httpResult = new HttpResult();
+        HttpResponse response = null;
+
         try {
-            HttpResponse execute = httpClient.execute(get);
-            httpResult.setCode(execute.getStatusLine().getStatusCode());
-            httpResult.setBody(EntityUtils.toString(execute.getEntity()));
+            LoggerUtils.printIfDebugEnabled(logger, "send get url = {}", url);
+            response = httpClient.execute(get);
+            httpResult.setCode(response.getStatusLine().getStatusCode());
+            httpResult.setBody(EntityUtils.toString(response.getEntity()));
         } catch (IOException e) {
             httpResult.setCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
-            LoggerUtils.printIfErrorEnabled(logger, "exec get request error!");
+            LoggerUtils.printIfErrorEnabled(logger, "exec get request error! url={}, httpResult = {}, response = {}",url, httpResult, response);
         }
 
         return httpResult;

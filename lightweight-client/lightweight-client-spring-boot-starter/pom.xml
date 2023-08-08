@@ -44,12 +44,12 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>handsomehuang-maven</id>
-            <url>file:D:/workspace/java/2023/repo/maven-repository/</url>
-        </repository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>handsomehuang-maven</id>-->
+<!--            <url>file:D:/workspace/java/2023/repo/maven-repository/</url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
 
 
 </project>

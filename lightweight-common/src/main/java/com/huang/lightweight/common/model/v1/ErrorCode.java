@@ -64,9 +64,20 @@ public enum ErrorCode {
      *   set web ip exception
      */
     SERVER_SET_WEB_IP_EXCEPTION(30003, "set web ip exception"),
+
+
+    /**
+     * 目前只支持GET请求
+     */
+    CONNECT_TYPE_ERROR(40000, "Currently, only GET requests are supported"),
+
+    /**
+     * 没有实例
+     */
+    CONNECT_NO_INSTANCE(40001, "No instances available")
     ;
 
-    
+
     private final Integer code;
     
     private final String msg;

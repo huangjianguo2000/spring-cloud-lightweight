@@ -17,7 +17,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public Result<String> hello(){
-        return Result.success("hello word of produce");
+        return Result.success("hello word of produce 1");
     }
 
 

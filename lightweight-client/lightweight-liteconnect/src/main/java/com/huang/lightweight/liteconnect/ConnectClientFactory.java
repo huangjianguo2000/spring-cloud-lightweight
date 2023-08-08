@@ -1,7 +1,10 @@
 package com.huang.lightweight.liteconnect;
 
+import com.huang.lightweight.common.exception.LightweightException;
+import com.huang.lightweight.common.model.v1.ErrorCode;
 import com.huang.lightweight.common.util.http.HttpClientUtil;
 import com.huang.lightweight.common.util.http.HttpResult;
+import com.huang.lightweight.liteconnect.balancer.DefaultLoadBalancer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.cloud.client.ServiceInstance;
@@ -19,7 +22,7 @@ public class ConnectClientFactory implements FactoryBean<Object>, ApplicationCon
 
     private final Class<?> interfaceClass;
 
-    private ApplicationContext applicationContext;
+    private DefaultLoadBalancer defaultLoadBalancer;
 
     public ConnectClientFactory(Class<?> interfaceClass) {
         this.interfaceClass = interfaceClass;
@@ -47,7 +50,7 @@ public class ConnectClientFactory implements FactoryBean<Object>, ApplicationCon
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+         defaultLoadBalancer = new DefaultLoadBalancer(applicationContext);
     }
 
     private class ConnectClientInvocationHandler implements InvocationHandler {
@@ -55,16 +58,12 @@ public class ConnectClientFactory implements FactoryBean<Object>, ApplicationCon
         public String invoke(Object proxy, Method method, Object[] args) throws Throwable {
             // 服务名称
             String serviceName = interfaceClass.getAnnotation(ConnectClient.class).name();
-            // 服务发现客户端
-            DiscoveryClient discoveryClient = applicationContext.getBean(DiscoveryClient.class);
-            // 服务实例
-            List<ServiceInstance> instances = discoveryClient.getInstances(serviceName);
 
             GetMapping getMapping = method.getAnnotation(GetMapping.class);
             if (getMapping != null) {
                 String[] value = getMapping.value();
                 if (value.length > 0) {
-                    String url = "http://" + instances.get(0).getHost() + ":" + instances.get(0).getPort() + value[0];
+                    String url =defaultLoadBalancer.getPath(serviceName) + value[0];
                     try {
                         HttpResult httpResult = HttpClientUtil.getInstance().get(url);
                         if (httpResult.getBody() != null) {
@@ -81,9 +80,11 @@ public class ConnectClientFactory implements FactoryBean<Object>, ApplicationCon
                     // Handle empty value
                     return "Empty URL value";
                 }
+            }else{
+                throw new LightweightException(ErrorCode.CONNECT_TYPE_ERROR, "Currently, only GET requests are supported");
             }
 
-            return "error";
+           // return "error";
         }
         @Override
         public boolean equals(Object obj) {

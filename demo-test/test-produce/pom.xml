@@ -37,12 +37,12 @@
         </dependency>
 
     </dependencies>
-    <repositories>
-        <repository>
-            <id>handsomehuang-maven</id>
-            <url>https://gitee.com/huangjianguo2000/maven-repository/raw/master</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>handsomehuang-maven</id>-->
+<!--            <url>https://gitee.com/huangjianguo2000/maven-repository/raw/master</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
     <build>
         <plugins>

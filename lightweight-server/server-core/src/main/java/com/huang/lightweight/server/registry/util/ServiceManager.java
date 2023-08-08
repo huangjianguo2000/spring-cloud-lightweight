@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,7 +131,7 @@ public class ServiceManager {
      * 从缓存池中移除指定的实例
      * @param instance 要移除的实例
      */
-    public void removeInstance(Instance instance) {
+    public synchronized void removeInstance(Instance instance) {
         // 获取与服务名相关的实例列表
         List<Instance> instances = cache.get(instance.getServiceName());
         if (ListUtil.isEmpty(instances)) {
@@ -138,6 +139,13 @@ public class ServiceManager {
         }
         // 从列表中移除指定的实例
         instances.remove(instance);
+        Iterator<Instance> iterator = instances.iterator();
+        while (iterator.hasNext()) {
+            Instance next = iterator.next();
+            if(next.getPort()== instance.getPort() && next.getIp().equals(instance.getIp())){
+                instances.remove(next);
+            }
+        }
 
         if (instances.isEmpty()) {
             // 若列表为空，则将服务名从缓存池中移除

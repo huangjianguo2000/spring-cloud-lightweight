@@ -53,7 +53,7 @@ public class InstanceController {
      * @return  The result of the operation.
      */
     @GetMapping
-    public Result<List<InstanceWrapper>> listInstance(){
+    public Result<List<InstanceWrapper>> listInstance() {
         return Result.success(instanceService.listInstances());
     }
 

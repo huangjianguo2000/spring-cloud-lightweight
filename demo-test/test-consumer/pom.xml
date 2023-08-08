@@ -37,13 +37,18 @@
             <artifactId>lightweight-liteconnect</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.huang.lightweight</groupId>
+            <artifactId>lightweight-client-spring-boot-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>handsomehuang-maven</id>
-            <url>https://gitee.com/huangjianguo2000/maven-repository/raw/master</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>handsomehuang-maven</id>-->
+<!--            <url>https://gitee.com/huangjianguo2000/maven-repository/raw/master</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
     <build>
         <plugins>
             <plugin>
