@@ -22,14 +22,14 @@ package com.huang.lightweight.common.util.common;
  * @author lightweight
  */
 public class StringUtils {
-    
+
     /**
      * The empty String {@code ""}.
      *
      * @since 2.0
      */
     public static final String EMPTY = "";
-    
+
     /**
      * <p>Checks if a CharSequence is empty ("") or null.</p>
      *
@@ -51,7 +51,7 @@ public class StringUtils {
     public static boolean isEmpty(final CharSequence cs) {
         return cs == null || cs.length() == 0;
     }
-    
+
     /**
      * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>
      *
@@ -80,10 +80,10 @@ public class StringUtils {
         }
         return true;
     }
-    
+
     // Trim
     //-----------------------------------------------------------------------
-    
+
     /**
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling {@code null} by returning {@code null}.</p>
@@ -105,10 +105,10 @@ public class StringUtils {
     public static String trim(final String str) {
         return str == null ? null : str.trim();
     }
-    
+
     // Equals
     //-----------------------------------------------------------------------
-    
+
     /**
      * <p>Compares two CharSequences, returning {@code true} if they represent
      * equal sequences of characters.</p>
@@ -142,7 +142,7 @@ public class StringUtils {
         }
         return StringUtils.regionMatches(cs1, false, 0, cs2, 0, Math.max(cs1.length(), cs2.length()));
     }
-    
+
     /**
      * Green implementation of regionMatches.
      *
@@ -155,37 +155,98 @@ public class StringUtils {
      * @return whether the region matched
      */
     public static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
-            final CharSequence substring, final int start, final int length) {
+                                        final CharSequence substring, final int start, final int length) {
         if (cs instanceof String && substring instanceof String) {
             return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
         }
         int index1 = thisStart;
         int index2 = start;
         int tmpLen = length;
-        
+
         while (tmpLen-- > 0) {
             final char c1 = cs.charAt(index1++);
             final char c2 = substring.charAt(index2++);
-            
+
             if (c1 == c2) {
                 continue;
             }
-            
+
             if (!ignoreCase) {
                 return false;
             }
-            
+
             // The same check as in String.regionMatches():
             if (Character.toUpperCase(c1) != Character.toUpperCase(c2) && Character.toLowerCase(c1) != Character
                     .toLowerCase(c2)) {
                 return false;
             }
         }
-        
+
         return true;
     }
 
     public static boolean isNotEmpty(CharSequence cs) {
         return !isEmpty(cs);
     }
+
+
+    public static boolean isAnyBlank(CharSequence... css) {
+        if (isEmpty(css)) {
+            return true;
+        } else {
+            int len = css.length;
+
+            for(int i = 0; i < len; ++i) {
+                CharSequence cs = css[i];
+                if (isBlank(cs)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public static boolean isEmpty(Object[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean containsIgnoreCase(final CharSequence str, final CharSequence searchStr) {
+        if (str == null || searchStr == null) {
+            return false;
+        }
+        final int len = searchStr.length();
+        final int max = str.length() - len;
+        for (int i = 0; i <= max; i++) {
+            if (regionMatches(str, true, i, searchStr, 0, len)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean contains(CharSequence seq, CharSequence searchSeq) {
+        if (seq != null && searchSeq != null) {
+            int len = seq.length();
+            int searchLen = searchSeq.length();
+
+            for (int i = 0; i <= len - searchLen; i++) {
+                boolean found = true;
+                for (int j = 0; j < searchLen; j++) {
+                    if (seq.charAt(i + j) != searchSeq.charAt(j)) {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found) {
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            return false;
+        }
+    }
+
 }

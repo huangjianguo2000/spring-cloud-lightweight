@@ -8,6 +8,10 @@ spring:
     view:
       suffix: .html
 
+lightweight:
+  cluster:
+    address: localhost:5014,localhost:5015
+
 logging:
   level:
     com.huang: debug

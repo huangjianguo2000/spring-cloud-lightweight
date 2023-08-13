@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @param <V> The type of values
  */
 public class JvmCachePool<K, V> {
-    private final Map<K, V> cache;
+    private Map<K, V> cache;
 
     /**
      * Constructor, initializes the cache pool.
@@ -70,5 +70,13 @@ public class JvmCachePool<K, V> {
      */
     public List<V> getValuesAsList() {
         return new ArrayList<>(cache.values());
+    }
+
+    /**
+     * 替换Map
+     */
+    public void replaceData(Map<K, V> map){
+        cache.clear();
+        cache = map;
     }
 }

@@ -5,15 +5,13 @@ import com.huang.lightweight.common.model.v1.ErrorCode;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.util.cache.JvmCachePool;
 import com.huang.lightweight.common.util.common.ListUtil;
-import com.huang.lightweight.common.util.common.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -76,8 +74,8 @@ public class ServiceManager {
                 return;
             }
         }
-        throw new LightweightException(ErrorCode.SERVER_INSTANCE_NOT_EXIST,
-                value.getIp() + ":" + value.getPort() + "，实例不存在");
+        // 实例不存在
+        put(key, value);
     }
 
     /**
@@ -131,7 +129,7 @@ public class ServiceManager {
      * 从缓存池中移除指定的实例
      * @param instance 要移除的实例
      */
-    public synchronized void removeInstance(Instance instance) {
+    public void removeInstance(Instance instance) {
         // 获取与服务名相关的实例列表
         List<Instance> instances = cache.get(instance.getServiceName());
         if (ListUtil.isEmpty(instances)) {
@@ -139,13 +137,6 @@ public class ServiceManager {
         }
         // 从列表中移除指定的实例
         instances.remove(instance);
-        Iterator<Instance> iterator = instances.iterator();
-        while (iterator.hasNext()) {
-            Instance next = iterator.next();
-            if(next.getPort()== instance.getPort() && next.getIp().equals(instance.getIp())){
-                instances.remove(next);
-            }
-        }
 
         if (instances.isEmpty()) {
             // 若列表为空，则将服务名从缓存池中移除
@@ -154,6 +145,14 @@ public class ServiceManager {
             // 若列表仍包含实例，则使用修改后的列表更新缓存池
             cache.put(instance.getServiceName(), instances);
         }
+    }
+
+    /**
+     * 替换所有的数据
+     */
+    public void replaceData(Map<String, List<Instance>> data){
+        cache.clear();
+        cache.replaceData(data);
     }
 }
 

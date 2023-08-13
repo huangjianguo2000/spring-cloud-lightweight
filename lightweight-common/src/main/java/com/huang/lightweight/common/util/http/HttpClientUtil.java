@@ -47,14 +47,10 @@ public final class HttpClientUtil {
         return INSTANCE;
     }
 
-    /**
-     * Simple Encapsulated Post Request
-     *
-     * @param url    url
-     * @param header request header
-     * @param data   request body
-     * @return {@link HttpResult}
-     */
+    public HttpResult post(String url, Object data) {
+        return post(url, null, data);
+    }
+
     public HttpResult post(String url, Map<String, String> header, Object data) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
