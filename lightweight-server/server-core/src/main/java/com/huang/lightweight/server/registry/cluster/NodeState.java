@@ -13,17 +13,17 @@ public enum NodeState {
     UP,
     
     /**
-     * Node may Crash.
+     * Node may Crash.节点可能崩溃了
      */
     SUSPICIOUS,
     
     /**
-     * Node is out of service, something abnormal happened.
+     * Node is out of service, something abnormal happened.节点停止服务，出现异常。
      */
     DOWN,
     
     /**
-     * The Node is isolated.
+     * The Node is isolated. 节点处于隔离状态。
      */
     ISOLATION,
     

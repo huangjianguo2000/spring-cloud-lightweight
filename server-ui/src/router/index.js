@@ -24,6 +24,13 @@ const routes = [
                     title: '服务详情'
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/ServiceDetail.vue")
+            },  {
+                path: "/cluster",
+                name: "cluster",
+                meta: {
+                    title: '集群列表'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Cluster.vue")
             }, {
                 path: '/404',
                 name: '404',

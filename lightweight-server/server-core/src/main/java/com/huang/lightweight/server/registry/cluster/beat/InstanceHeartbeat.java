@@ -1,30 +1,28 @@
-package com.huang.lightweight.server.registry.util;
+package com.huang.lightweight.server.registry.cluster.beat;
 
 import com.huang.lightweight.common.common.Constants;
 import com.huang.lightweight.common.pojo.instance.Instance;
-import com.huang.lightweight.common.util.cache.JvmCachePool;
-import com.huang.lightweight.common.util.common.ListUtil;
 import com.huang.lightweight.common.util.common.LoggerUtils;
+import com.huang.lightweight.server.registry.util.ServiceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 /**
- * 定时线程池工具类
+ * 检测实例是否存活的线程池
  * @Author lightweight
  * @Date 2023/5/24 15:32
  */
 @Component
-public class ScheduledThreadPool {
+public class InstanceHeartbeat {
 
-    private final Logger logger = LoggerFactory.getLogger(ScheduledThreadPool.class);
+    private final Logger logger = LoggerFactory.getLogger(InstanceHeartbeat.class);
 
     /**
      * 用于存储每个实例相关任务的映射表

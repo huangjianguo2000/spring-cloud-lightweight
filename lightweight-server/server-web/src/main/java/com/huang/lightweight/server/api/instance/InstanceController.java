@@ -1,5 +1,6 @@
 package com.huang.lightweight.server.api.instance;
 
+import com.huang.lightweight.common.common.Constants;
 import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.model.v1.Result;
 import com.huang.lightweight.common.pojo.instance.Instance;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/light/v1/rc/instance")
+@RequestMapping(Constants.DEFAULT_LIGHTWEIGHT_NAMING_CONTEXT + "/instance")
 public class InstanceController {
 
     /**

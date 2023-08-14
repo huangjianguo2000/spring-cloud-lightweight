@@ -3,9 +3,12 @@ package com.huang.lightweight.server.registry.service.impl;
 import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
-import com.huang.lightweight.common.util.common.LoggerUtils;
+import com.huang.lightweight.common.task.TaskExecuteWorker;
+import com.huang.lightweight.server.registry.cluster.beat.InstanceHeartbeat;
+import com.huang.lightweight.server.registry.cluster.distributed.DistributedManager;
+import com.huang.lightweight.server.registry.cluster.distributed.DistributedMode;
+import com.huang.lightweight.server.registry.cluster.distributed.distro.DistroProtocol;
 import com.huang.lightweight.server.registry.service.InstanceService;
-import com.huang.lightweight.server.registry.util.ScheduledThreadPool;
 import com.huang.lightweight.server.registry.util.ServiceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +34,14 @@ public class InstanceServiceImpl implements InstanceService {
     private ServiceManager serviceManager;
 
     @Autowired
-    private ScheduledThreadPool scheduledThreadPool;
+    private InstanceHeartbeat scheduledThreadPool;
+
+    @Autowired
+    private DistributedManager distributedManager;
+
+    @Autowired
+    private DistroProtocol distroProtocol;
+
     /**
      * regitry to server
      *
@@ -44,6 +54,9 @@ public class InstanceServiceImpl implements InstanceService {
         serviceManager.put(instance.getServiceName(), instance);
         // 心跳检查
         scheduledThreadPool.execute(instance, serviceManager);
+        if(distributedManager.getMode() == DistributedMode.AP){
+            distroProtocol.sendRegisterInstance(instance);
+        }
     }
 
     /**
@@ -62,24 +75,15 @@ public class InstanceServiceImpl implements InstanceService {
      * @return A list of InstanceWrapper objects
      */
     public List<InstanceWrapper> listInstances() {
-        List<InstanceWrapper> ans = new ArrayList<>();
-        List<List<Instance>> list = serviceManager.list();
-        // wrapper
-        for (List<Instance> instances : list) {
-            if (instances != null && !instances.isEmpty()) {
-                InstanceWrapper instanceWrapper = new InstanceWrapper();
-                instanceWrapper.setServiceName(instances.get(0).getServiceName());
-                instanceWrapper.setHosts(instances);
-                ans.add(instanceWrapper);
-            }
-        }
-        return ans;
+        return serviceManager.listInstanceWrapper();
     }
 
+    /**
+     * 接收心跳检测
+     */
     @Override
     public void beat(Instance instance) throws LightweightException {
         instance.setLastBeat(System.currentTimeMillis());
-        //LoggerUtils.printIfDebugEnabled(logger, instance.getIp() + ":" + instance.getPort() + " beat complete");
         serviceManager.update(instance.getServiceName(), instance);
     }
 

@@ -39,9 +39,12 @@ export default {
     setup() {
         const items = [
             {
-
                 index: "/service",
                 title: "服务列表",
+            },{
+
+                index: "/cluster",
+                title: "集群列表",
             },
             // {
             //     icon: "el-icon-lx-calendar",

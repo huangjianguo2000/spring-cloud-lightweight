@@ -6,7 +6,9 @@ package com.huang.lightweight.common.common;
  */
 public class Constants {
 
-    public static final String LIGHTWEIGHT_SERVER_VERSION = "/v1";
+    public static final String NAME = "/light";
+
+    public static final String LIGHTWEIGHT_SERVER_VERSION = NAME + "/v1";
 
     public static final String DEFAULT_LIGHTWEIGHT_NAMING_CONTEXT = LIGHTWEIGHT_SERVER_VERSION + "/rc";
 

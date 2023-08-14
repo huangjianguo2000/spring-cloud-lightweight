@@ -36,7 +36,7 @@ public interface InstanceService {
     List<InstanceWrapper> listInstances();
 
     /**
-     * 进行心跳检测
+     * 接收心跳检测
      * @param instance
      * @throws LightweightException
      */

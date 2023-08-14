@@ -20,6 +20,14 @@ public class InstanceWrapper {
      */
     private List<Instance> hosts;
 
+    public InstanceWrapper() {
+    }
+
+    public InstanceWrapper(String serviceName, List<Instance> hosts) {
+        this.serviceName = serviceName;
+        this.hosts = hosts;
+    }
+
     public String getServiceName() {
         return serviceName;
     }

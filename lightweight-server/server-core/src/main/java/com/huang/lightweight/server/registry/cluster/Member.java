@@ -1,5 +1,6 @@
 package com.huang.lightweight.server.registry.cluster;
 
+import com.huang.lightweight.common.common.Constants;
 import com.huang.lightweight.common.util.common.StringUtils;
 
 import java.util.Objects;
@@ -15,15 +16,31 @@ public class Member implements Comparable<Member>, Cloneable {
     
     private String address = "";
 
+    private long lastBeatTime = System.currentTimeMillis();
+
     /**
      * 访问失败
      */
     private transient int failAccessCnt = 0;
     
-    public Member() {
+    public Member() {}
 
+    public Member(String ip, int port, NodeState state, String address, int failAccessCnt) {
+        this.ip = ip;
+        this.port = port;
+        this.state = state;
+        this.address = address;
+        this.failAccessCnt = failAccessCnt;
     }
-    
+
+    public long getLastBeatTime() {
+        return lastBeatTime;
+    }
+
+    public void setLastBeatTime(long lastBeatTime) {
+        this.lastBeatTime = lastBeatTime;
+    }
+
     public static MemberBuilder builder() {
         return new MemberBuilder();
     }
@@ -59,6 +76,10 @@ public class Member implements Comparable<Member>, Cloneable {
         }
         return address;
     }
+
+    public String getCompleteAddress(){
+        return Constants.NET_PROTOCOL + address;
+    }
     
     public void setAddress(String address) {
         this.address = address;
@@ -90,7 +111,7 @@ public class Member implements Comparable<Member>, Cloneable {
     
     @Override
     public String toString() {
-        return "Member{" + "ip='" + ip + '\'' + ", port=" + port + ", state=" + state + ", extendInfo="
+        return "Member{" + "ip='" + ip + '\'' + ", port=" + port + ", state=" + state + ", lastBeatTime=" + lastBeatTime
                 + '}';
     }
     

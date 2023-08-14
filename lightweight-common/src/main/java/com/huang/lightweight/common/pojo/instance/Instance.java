@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * Instance.
+ *
  * @author lightweight
  */
 public class Instance implements Serializable {
@@ -140,6 +141,11 @@ public class Instance implements Serializable {
 
     public void setMetadata(Map<String, String> metadata) {
         this.metadata = metadata;
+    }
+
+
+    public boolean equals(Instance instance) {
+        return this.ip.equals(instance.ip) && this.port == instance.port;
     }
 
     @Override

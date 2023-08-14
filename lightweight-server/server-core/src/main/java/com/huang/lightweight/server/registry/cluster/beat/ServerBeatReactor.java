@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 服务端发送心跳检测
  * @Author lightweight
  * @Date 2023/8/13 20:12
  */
@@ -27,7 +28,7 @@ public class ServerBeatReactor {
         });
     }
     public void addBeatInfo(ServerBeatInfo serverBeatInfo) {
-        executorService.schedule(new BeatTask(serverBeatInfo), serverBeatInfo.getPeriod(), TimeUnit.MILLISECONDS);
+        executorService.scheduleWithFixedDelay(new BeatTask(serverBeatInfo), 0, serverBeatInfo.getPeriod(), TimeUnit.MILLISECONDS);
     }
 
     class BeatTask implements Runnable {
@@ -43,10 +44,5 @@ public class ServerBeatReactor {
             clusterProxy.sendBeat(serverBeatInfo.getMemberRequest());
         }
     }
-
-    public ClusterProxy getClusterProxy() {
-        return clusterProxy;
-    }
-
 
 }

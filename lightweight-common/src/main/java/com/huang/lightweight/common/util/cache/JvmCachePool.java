@@ -1,13 +1,13 @@
 package com.huang.lightweight.common.util.cache;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * JVM Cache Pool
+ *
  * @param <K> The type of keys
  * @param <V> The type of values
  */
@@ -23,6 +23,7 @@ public class JvmCachePool<K, V> {
 
     /**
      * Retrieves the value associated with the specified key from the cache.
+     *
      * @param key The key to retrieve the value for
      * @return The value associated with the key, or null if the key is not found in the cache
      */
@@ -32,7 +33,8 @@ public class JvmCachePool<K, V> {
 
     /**
      * Adds or updates a key-value pair in the cache.
-     * @param key The key to add or update
+     *
+     * @param key   The key to add or update
      * @param value The value to associate with the key
      */
     public void put(K key, V value) {
@@ -41,6 +43,7 @@ public class JvmCachePool<K, V> {
 
     /**
      * Removes the key-value pair associated with the specified key from the cache.
+     *
      * @param key The key to remove from the cache
      */
     public void remove(K key) {
@@ -56,6 +59,7 @@ public class JvmCachePool<K, V> {
 
     /**
      * Checks if the cache contains the specified key.
+     *
      * @param key The key to check for
      * @return true if the cache contains the key, false otherwise
      */
@@ -75,8 +79,15 @@ public class JvmCachePool<K, V> {
     /**
      * 替换Map
      */
-    public void replaceData(Map<K, V> map){
+    public void replaceData(Map<K, V> map) {
         cache.clear();
         cache = map;
+    }
+
+    /**
+     * 拷贝一份
+     */
+    public Map<K, V> copy() {
+        return new ConcurrentHashMap<>(cache);
     }
 }

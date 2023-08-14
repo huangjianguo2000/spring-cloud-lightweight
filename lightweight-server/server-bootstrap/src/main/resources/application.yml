@@ -10,7 +10,7 @@ spring:
 
 lightweight:
   cluster:
-    address: localhost:5014,localhost:5015
+    address: localhost:5014,localhost:5013
 
 logging:
   level:

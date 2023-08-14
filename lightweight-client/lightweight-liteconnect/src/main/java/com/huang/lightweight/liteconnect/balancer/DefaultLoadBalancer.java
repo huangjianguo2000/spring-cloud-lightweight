@@ -53,6 +53,7 @@ public class DefaultLoadBalancer extends AbstractLoadBalancer{
         if(atomicInteger == null){
             atomicInteger = new AtomicInteger(0);
         }
+        // 自增加一
         atomicInteger.incrementAndGet();
         if(atomicInteger.get() >= instances.size()){
             atomicInteger.compareAndSet(atomicInteger.get(), 0);

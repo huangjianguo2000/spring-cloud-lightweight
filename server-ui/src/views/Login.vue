@@ -34,7 +34,11 @@ import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 
 export default {
-    setup() {
+  created() {
+    // localStorage.setItem("ms_username", param.username);
+    // router.push("/service");
+  },
+  setup() {
         const router = useRouter();
         const param = reactive({
             username: "admin",
@@ -59,7 +63,7 @@ export default {
                 if (valid) {
                     ElMessage.success("登录成功");
                     localStorage.setItem("ms_username", param.username);
-                    router.push("/table");
+                    router.push("/service");
                 } else {
                     ElMessage.error("登录成功");
                     return false;
