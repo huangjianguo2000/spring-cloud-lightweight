@@ -8,4 +8,4 @@ spring:
   cloud:
     lightweight:
       discovery:
-        server-address: http://localhost:5014
+        server-address: http://localhost:80

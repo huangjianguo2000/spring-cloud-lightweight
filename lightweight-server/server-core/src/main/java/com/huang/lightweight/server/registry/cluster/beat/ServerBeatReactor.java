@@ -46,7 +46,6 @@ public class ServerBeatReactor {
         public void run() {
             List<InstanceWrapper> instanceWrappers = serverBeatInfo.getServiceManager().listInstanceWrapper();
             serverBeatInfo.getMemberRequest().setInstances(instanceWrappers);
-            System.out.println(instanceWrappers);
             clusterProxy.sendBeat(serverBeatInfo.getMemberRequest());
         }
     }

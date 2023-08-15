@@ -22,6 +22,11 @@ public class Constants {
     public static final int HEART_BEAT_INTERVAL = 15000;
 
     /**
+     * 心跳检测兜底方案检测时间
+     */
+    public static final int HEART_BEAT_INTERVAL_UNDERTAKE = HEART_BEAT_INTERVAL * 4;
+
+    /**
      * 发送心跳检测间隔
      */
     public static final int DEFAULT_HEART_BEAT_INTERVAL = 5000;

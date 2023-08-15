@@ -4,6 +4,9 @@ import com.huang.lightweight.client.LightweightDiscoveryProperties;
 import com.huang.lightweight.client.LightweightServiceInstance;
 import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.pojo.instance.Instance;
+import com.huang.lightweight.common.util.common.LoggerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.ServiceInstance;
 
 import java.util.*;
@@ -14,6 +17,8 @@ import java.util.*;
  */
 public class LightweightServiceDiscovery {
 
+    private final Logger logger = LoggerFactory.getLogger(LightweightServiceDiscovery.class);
+
     private LightweightDiscoveryProperties discoveryProperties;
 
     public LightweightServiceDiscovery(LightweightDiscoveryProperties lightweightDiscoveryProperties) {
@@ -21,13 +26,14 @@ public class LightweightServiceDiscovery {
     }
 
     /**
-     *
+     *  获取某个服务集群下的实例列表
      * @param serviceId
      * @return
      * @throws LightweightException
      */
     public List<ServiceInstance> getInstances(String serviceId) throws LightweightException {
         List<Instance> instances = this.discoveryProperties.getNamingService().getAllInstances(serviceId);
+        LoggerUtils.printIfInfoEnabled(logger, "discovery getInstances list = {}", instances);
         return hostToServiceInstanceList(instances, serviceId);
     }
 

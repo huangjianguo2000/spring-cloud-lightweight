@@ -27,9 +27,4 @@ public class DistroController {
         return Result.success();
     }
 
-    @PostMapping("/datum")
-    public Result<Void> receiveInstance(@RequestBody Instance instance){
-        System.out.println(instance);
-        return Result.success();
-    }
 }

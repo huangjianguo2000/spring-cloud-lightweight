@@ -23,7 +23,7 @@ public class NamingProxy {
     private final Logger logger = LoggerFactory.getLogger(NamingProxy.class);
 
     /**
-     *  cluster server list
+     * cluster server list
      */
     private List<String> serverList;
 
@@ -39,6 +39,7 @@ public class NamingProxy {
 
     /**
      * init
+     *
      * @param serverList server ip
      * @param properties data
      */
@@ -75,21 +76,21 @@ public class NamingProxy {
         }
     }
 
-    public void sendBeat(Instance instance){
-       // LoggerUtils.printIfDebugEnabled(logger, "[send beat {} with instance: {}]", instance);
-        HttpResult httpResult = HttpClientUtil.getInstance().post(lightweightDomain + URLConstant.SEND_BEAT, new HashMap<>(), instance);
-        if (httpResult.getCode() == HttpStatus.SC_OK) {
-           // LoggerUtils.printIfDebugEnabled(logger, "send beat success");
-        } else {
-            LoggerUtils.printIfWarnEnabled(logger, "send beat fail, res = " + httpResult);
+    public void sendBeat(Instance instance) {
+        String url = lightweightDomain + URLConstant.SEND_BEAT;
+        HttpResult httpResult = HttpClientUtil.getInstance().post(url, instance);
+        if (httpResult.getCode() != HttpStatus.SC_OK) {
+            LoggerUtils.printIfWarnEnabled(logger, "send beat fail, url = {} instance = {} res = {}",
+                    url, instance, httpResult);
         }
     }
 
     /**
      * 查询注册中心的所有服务实例
+     *
      * @return res
      */
-    public Map<String, List<Instance>> listInstance(){
+    public Map<String, List<Instance>> listInstance() {
         HttpResult httpResult = HttpClientUtil.getInstance().get(lightweightDomain + URLConstant.instanceUrl);
         Map<String, List<Instance>> ans = new HashMap<>();
         if (httpResult.getCode() == HttpStatus.SC_OK) {

@@ -65,7 +65,7 @@ public class InstanceServiceImpl implements InstanceService {
             }
         }
         // 心跳检查
-        scheduledThreadPool.execute(instance, serviceManager);
+        scheduledThreadPool.execute(instance);
     }
 
     /**

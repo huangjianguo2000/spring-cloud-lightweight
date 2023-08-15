@@ -44,6 +44,11 @@ public enum ErrorCode {
      */
     CREATE_NAMING_SERVICE_ERROR(10002, "create naming service error"),
 
+    /************************************远程调用相关*******************************************/
+    CONNECT_TYPE_ERROR(20000, "Currently, only GET requests are supported"),
+
+
+    /***************************注册中心服务端相关**************************************/
     /**
      *  server error.
      */
@@ -59,7 +64,7 @@ public enum ErrorCode {
      */
     SERVER_INSTANCE_NOT_EXIST(30002, "instance not exist"),
 
-
+    /****************************** 集群相关***************************************************/
     /**
      * 集群配置错误
      */
