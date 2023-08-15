@@ -1,6 +1,7 @@
 package com.huang.lightweight.server.registry.cluster.beat;
 
 import com.huang.lightweight.server.registry.entity.MemberRequest;
+import com.huang.lightweight.server.registry.ServiceManager;
 
 /**
  * @Author lightweight
@@ -11,6 +12,16 @@ public class ServerBeatInfo {
     private MemberRequest memberRequest;
 
     private long period;
+
+    private ServiceManager serviceManager;
+
+    public ServiceManager getServiceManager() {
+        return serviceManager;
+    }
+
+    public void setServiceManager(ServiceManager serviceManager) {
+        this.serviceManager = serviceManager;
+    }
 
     public MemberRequest getMemberRequest() {
         return memberRequest;

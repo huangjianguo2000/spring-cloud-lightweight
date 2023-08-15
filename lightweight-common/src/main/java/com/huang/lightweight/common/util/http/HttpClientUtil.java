@@ -412,7 +412,7 @@ public final class HttpClientUtil {
         HttpResponse response = null;
 
         try {
-            LoggerUtils.printIfDebugEnabled(logger, "send get url = {}", url);
+            LoggerUtils.printIfInfoEnabled(logger, "send get url = {}", url);
             response = httpClient.execute(get);
             httpResult.setCode(response.getStatusLine().getStatusCode());
             httpResult.setBody(EntityUtils.toString(response.getEntity()));

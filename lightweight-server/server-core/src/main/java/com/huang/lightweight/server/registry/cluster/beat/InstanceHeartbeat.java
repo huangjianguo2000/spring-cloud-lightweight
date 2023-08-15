@@ -3,7 +3,7 @@ package com.huang.lightweight.server.registry.cluster.beat;
 import com.huang.lightweight.common.common.Constants;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.util.common.LoggerUtils;
-import com.huang.lightweight.server.registry.util.ServiceManager;
+import com.huang.lightweight.server.registry.ServiceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -46,11 +46,13 @@ public class InstanceHeartbeat {
      * @param serviceManager 包含实例的缓存池管理者
      */
     public void execute(Instance instance, ServiceManager serviceManager) {
+
         if (!checkTask(instance)) {
             // 实例的任务已存在
-            LoggerUtils.printIfErrorEnabled(logger, "任务已存在");
+            LoggerUtils.printIfInfoEnabled(logger, "beat heart task is Existed instance = {}", instance);
             return;
         }
+        LoggerUtils.printIfInfoEnabled(logger, "add beat heart task instance = {}", instance);
         Runnable task = () -> doCheckBeat(instance, serviceManager);
         // 提交任务
         RunnableScheduledFuture<?> scheduledFuture = (RunnableScheduledFuture<?>)scheduledThreadPoolExecutor.scheduleAtFixedRate(task, Constants.HEART_BEAT_INTERVAL, Constants.HEART_BEAT_INTERVAL, MILLISECONDS);
@@ -93,7 +95,7 @@ public class InstanceHeartbeat {
         if (interval > (Constants.HEART_BEAT_INTERVAL * 2)) {
             // 若超过，则将实例从缓存池中移除
             serviceManager.removeInstance(instance);
-            LoggerUtils.printIfDebugEnabled(logger, "instance {} is remove, remove task", instance.getServiceName());
+            LoggerUtils.printIfInfoEnabled(logger, "instance {} is remove, remove task", instance.getServiceName());
             ScheduledFuture<?> runnable = taskMap.get(instance);
             runnable.cancel(false);
             taskMap.remove(instance);

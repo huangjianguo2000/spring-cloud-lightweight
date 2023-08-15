@@ -62,7 +62,7 @@ public class LightweightAutoServiceRegistration extends AbstractAutoServiceRegis
     @Override
     protected void register() {
         if (!this.lightweightRegistration.getLightWeightDiscoveryProperties().isRegisterEnabled()) {
-            LoggerUtils.printIfDebugEnabled(logger, "Registration disabled.");
+            LoggerUtils.printIfWarnEnabled(logger, "Registration disabled.");
         } else {
             if (this.lightweightRegistration.getPort() < 0) {
                 // Set the port if not already set

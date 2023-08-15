@@ -1,12 +1,10 @@
-package com.huang.lightweight.server.registry.util;
+package com.huang.lightweight.server.registry;
 
 import com.huang.lightweight.common.exception.LightweightException;
-import com.huang.lightweight.common.model.v1.ErrorCode;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.util.cache.JvmCachePool;
 import com.huang.lightweight.common.util.common.ListUtil;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,7 +27,7 @@ public class ServiceManager {
     /**
      * 将键值对放入缓存池
      */
-    public synchronized void put(String key, Instance value) throws LightweightException {
+    public synchronized void put(String key, Instance value) {
         if (cache.containsKey(key)) {
             // 检查旧值
             List<Instance> list = cache.get(key);
@@ -51,20 +49,39 @@ public class ServiceManager {
     }
 
     /**
+     * 检测实例是否存在
+     */
+    public boolean checkHasInMap(Instance instance) {
+        List<Instance> list = cache.get(instance.getServiceName());
+        if(list == null){
+            return false;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            Instance temp = list.get(i);
+            if (instance.getIp().equals(temp.getIp()) && instance.getPort() == temp.getPort()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 更新缓存池中的键值对
      *
      * @param key   要关联值的键
      * @param value 要更新的值
      * @throws LightweightException 若实例不存在则抛出异常
      */
-    public synchronized void update(String key, Instance value) throws LightweightException {
+    public synchronized void update(String key, Instance value) {
         List<Instance> list = cache.get(key);
-        for (int i = 0; i < list.size(); i++) {
-            Instance instance = list.get(i);
-            if (instance.getIp().equals(value.getIp()) && instance.getPort() == value.getPort()) {
-                list.set(i, value);
-                cache.put(key, list);
-                return;
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                Instance instance = list.get(i);
+                if (instance.getIp().equals(value.getIp()) && instance.getPort() == value.getPort()) {
+                    list.set(i, value);
+                    //  cache.put(key, list);
+                    return;
+                }
             }
         }
         // 实例不存在
@@ -97,6 +114,7 @@ public class ServiceManager {
     public synchronized List<List<Instance>> list() {
         return cache.getValuesAsList();
     }
+
     /**
      * Instance包装成 InstanceWrapper
      */
@@ -112,6 +130,20 @@ public class ServiceManager {
         }
         return ans;
     }
+
+    /**
+     * 包装成MAP， key 实例地址
+     */
+    public Map<String, Instance> listAsMap() {
+        Map<String, Instance> map = new HashMap<>();
+        for (List<Instance> instances : list()) {
+            for (Instance instance : instances) {
+                map.put(instance.getIp() + instance.getPort(), instance);
+            }
+        }
+        return map;
+    }
+
     /**
      * 从缓存池中移除指定的实例
      */

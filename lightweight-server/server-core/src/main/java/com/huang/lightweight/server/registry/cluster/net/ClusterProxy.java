@@ -1,6 +1,7 @@
 package com.huang.lightweight.server.registry.cluster.net;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.huang.lightweight.common.common.Constants;
 import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.model.v1.ErrorCode;
@@ -79,16 +80,16 @@ public class ClusterProxy {
                 continue;
             }
             String body = httpResult.getBody();
-            LoggerUtils.printIfDebugEnabled(logger, "pull instances {}", body);
+            LoggerUtils.printIfInfoEnabled(logger, "pull instances {}", body);
             Result<List<InstanceWrapper>> result = JSON.parseObject(body, Result.class);
             // 请求失败
-            if(result.getCode() != 0){
+            if (result.getCode() != 0) {
                 continue;
             }
             List<InstanceWrapper> instanceWrappers = result.getData();
-            LoggerUtils.printIfDebugEnabled(logger, "instanceWrappers = {}", instanceWrappers);
+            LoggerUtils.printIfInfoEnabled(logger, "instanceWrappers = {}", instanceWrappers);
             ConcurrentHashMap<String, List<Instance>> ans = new ConcurrentHashMap<>();
-            if(instanceWrappers == null){
+            if (instanceWrappers == null) {
                 return ans;
             }
             for (InstanceWrapper instanceWrapper : instanceWrappers) {
@@ -109,7 +110,7 @@ public class ClusterProxy {
             if (IPList != null) {
                 for (String url : IPList) {
                     HttpClientUtil.getInstance().post(url + Constants.DEFAULT_LIGHTWEIGHT_NAMING_CONTEXT + "/distro", data);
-                  //  LoggerUtils.printIfDebugEnabled(logger, "beat send {}, to {}", memberRequest, url + Constants.DEFAULT_LIGHTWEIGHT_NAMING_CONTEXT + "/distro");
+                    //  LoggerUtils.printIfDebugEnabled(logger, "beat send {}, to {}", memberRequest, url + Constants.DEFAULT_LIGHTWEIGHT_NAMING_CONTEXT + "/distro");
                 }
             }
         });
@@ -118,11 +119,18 @@ public class ClusterProxy {
     /**
      * 将注册信息发送给第一个节点
      */
-    public void sendRegisterInstance(String url, Instance instance) {
+    public boolean sendRegisterInstance(String url, Instance instance) {
         HttpResult post = HttpClientUtil.getInstance().post(url, instance);
         String body = post.getBody();
-        System.out.println(body);
-//        if(post.getCode())
+        LoggerUtils.printIfInfoEnabled(logger, "sendRegisterInstance url = {} instance = {} res = {}",
+                url, instance, body);
+        JSONObject jsonObject = JSON.parseObject(body);
+        int code = jsonObject.getIntValue("code");
+        if (code == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -24,6 +24,10 @@ public class MemberRequest {
         this.instances = instances;
     }
 
+    public MemberRequest(Member member) {
+        this.member = member;
+    }
+
     public MemberRequest() {
 
     }

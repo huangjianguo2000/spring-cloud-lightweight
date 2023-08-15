@@ -5,7 +5,7 @@ import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.util.common.IPUtil;
 import com.huang.lightweight.common.util.common.LoggerUtils;
 import com.huang.lightweight.server.registry.cluster.net.ClusterProxy;
-import com.huang.lightweight.server.registry.util.ServiceManager;
+import com.huang.lightweight.server.registry.ServiceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
-import java.util.stream.Collectors;
 
 /**
  * 管理集群节点
@@ -87,7 +85,7 @@ public class ServerMemberManager {
      * 拉取注册信息
      */
     private void pullData() {
-        LoggerUtils.printIfDebugEnabled(logger, "pullData");
+       // LoggerUtils.printIfDebugEnabled(logger, "pullData");
         Map<String, List<Instance>> map = clusterProxy.pullInstances();
         if (map != null) {
             serverListManager.replaceData(map);

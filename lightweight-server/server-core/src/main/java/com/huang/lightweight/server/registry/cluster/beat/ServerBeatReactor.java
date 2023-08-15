@@ -1,7 +1,10 @@
 package com.huang.lightweight.server.registry.cluster.beat;
 
+import com.huang.lightweight.common.pojo.InstanceWrapper;
+import com.huang.lightweight.common.util.common.LoggerUtils;
 import com.huang.lightweight.server.registry.cluster.net.ClusterProxy;
 
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +44,9 @@ public class ServerBeatReactor {
 
         @Override
         public void run() {
+            List<InstanceWrapper> instanceWrappers = serverBeatInfo.getServiceManager().listInstanceWrapper();
+            serverBeatInfo.getMemberRequest().setInstances(instanceWrappers);
+            System.out.println(instanceWrappers);
             clusterProxy.sendBeat(serverBeatInfo.getMemberRequest());
         }
     }

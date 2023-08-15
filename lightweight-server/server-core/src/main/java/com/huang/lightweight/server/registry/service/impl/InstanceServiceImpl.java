@@ -3,19 +3,19 @@ package com.huang.lightweight.server.registry.service.impl;
 import com.huang.lightweight.common.exception.LightweightException;
 import com.huang.lightweight.common.pojo.instance.Instance;
 import com.huang.lightweight.common.pojo.InstanceWrapper;
-import com.huang.lightweight.common.task.TaskExecuteWorker;
+import com.huang.lightweight.common.util.common.LoggerUtils;
+import com.huang.lightweight.server.registry.cluster.ServerMemberManager;
 import com.huang.lightweight.server.registry.cluster.beat.InstanceHeartbeat;
 import com.huang.lightweight.server.registry.cluster.distributed.DistributedManager;
 import com.huang.lightweight.server.registry.cluster.distributed.DistributedMode;
 import com.huang.lightweight.server.registry.cluster.distributed.distro.DistroProtocol;
 import com.huang.lightweight.server.registry.service.InstanceService;
-import com.huang.lightweight.server.registry.util.ServiceManager;
+import com.huang.lightweight.server.registry.ServiceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +40,9 @@ public class InstanceServiceImpl implements InstanceService {
     private DistributedManager distributedManager;
 
     @Autowired
+    private ServerMemberManager serverMemberManager;
+
+    @Autowired
     private DistroProtocol distroProtocol;
 
     /**
@@ -49,14 +52,20 @@ public class InstanceServiceImpl implements InstanceService {
      * @return true success false fail
      */
     @Override
-    public void registerInstance(Instance instance) throws LightweightException {
+    public void registerInstance(Instance instance) {
         instance.setInstanceId(UUID.randomUUID().toString());
         serviceManager.put(instance.getServiceName(), instance);
+
+        if (distributedManager.getMode() == DistributedMode.AP) {
+            distroProtocol.sendRegisterInstance(instance);
+            // AP 只有第一个进行心跳检测
+            if (!serverMemberManager.checkFirstNode(serverMemberManager.getSelf())) {
+                LoggerUtils.printIfInfoEnabled(logger, "i am not first node not do beat hear");
+                return;
+            }
+        }
         // 心跳检查
         scheduledThreadPool.execute(instance, serviceManager);
-        if(distributedManager.getMode() == DistributedMode.AP){
-            distroProtocol.sendRegisterInstance(instance);
-        }
     }
 
     /**
@@ -65,8 +74,12 @@ public class InstanceServiceImpl implements InstanceService {
      * @param instance instance
      */
     @Override
-    public void updateInstance(Instance instance) throws Exception {
-        serviceManager.update(instance.getServiceName(), instance);
+    public void updateInstance(Instance instance) {
+        if (serviceManager.checkHasInMap(instance)) {
+            serviceManager.update(instance.getServiceName(), instance);
+            return;
+        }
+        registerInstance(instance);
     }
 
     /**
@@ -82,9 +95,10 @@ public class InstanceServiceImpl implements InstanceService {
      * 接收心跳检测
      */
     @Override
-    public void beat(Instance instance) throws LightweightException {
+    public void beat(Instance instance) {
         instance.setLastBeat(System.currentTimeMillis());
-        serviceManager.update(instance.getServiceName(), instance);
+       // LoggerUtils.printIfDebugEnabled(logger, "beat {}", instance);
+        updateInstance(instance);
     }
 
 }

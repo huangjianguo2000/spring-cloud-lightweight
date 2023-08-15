@@ -43,4 +43,13 @@ public class InstanceWrapper {
     public void setHosts(List<Instance> hosts) {
         this.hosts = hosts;
     }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "serviceName='" + serviceName + '\'' +
+                ", hosts=" + hosts +
+                '}';
+    }
+
 }

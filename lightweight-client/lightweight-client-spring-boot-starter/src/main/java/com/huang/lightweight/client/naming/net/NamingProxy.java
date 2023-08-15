@@ -76,12 +76,12 @@ public class NamingProxy {
     }
 
     public void sendBeat(Instance instance){
-        LoggerUtils.printIfDebugEnabled(logger, "[send beat {} with instance: {}]", instance);
+       // LoggerUtils.printIfDebugEnabled(logger, "[send beat {} with instance: {}]", instance);
         HttpResult httpResult = HttpClientUtil.getInstance().post(lightweightDomain + URLConstant.SEND_BEAT, new HashMap<>(), instance);
         if (httpResult.getCode() == HttpStatus.SC_OK) {
-            LoggerUtils.printIfDebugEnabled(logger, "send beat success");
+           // LoggerUtils.printIfDebugEnabled(logger, "send beat success");
         } else {
-            LoggerUtils.printIfInfoEnabled(logger, "send beat fail, res = " + httpResult);
+            LoggerUtils.printIfWarnEnabled(logger, "send beat fail, res = " + httpResult);
         }
     }
 
